@@ -2,78 +2,83 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Windows XP Meow Edition</title>
+    <title>Windows Meow Edition</title>
     <style>
-        /* Основной фон в стиле Bliss (зеленые холмы) */
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: url('https://i.imgur.com/Zk6y2ng.jpg') no-repeat center center fixed;
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            /* Тот самый фон Bliss (зеленые холмы) */
+            background: url('https://upload.wikimedia.org/wikipedia/commons/2/21/Bliss_%28Windows_XP_wallpaper%29.jpg') no-repeat center center fixed;
             background-size: cover;
             font-family: 'Tahoma', sans-serif;
-            overflow: hidden;
         }
 
-        /* Стилизация глянцевой кнопки */
-        .meow-button {
-            padding: 20px 50px;
-            font-size: 32px;
-            font-weight: bold;
-            color: #1a4d8c;
-            text-transform: uppercase;
-            cursor: pointer;
-            border: 2px solid #fff;
-            border-radius: 50px;
-            background: linear-gradient(180deg, #ffffff 0%, #a1c4fd 50%, #c2e9fb 100%);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 -5px 10px rgba(255,255,255,0.8);
-            transition: transform 0.1s, box-shadow 0.1s;
-            z-index: 10;
+        /* Окно Windows XP */
+        .xp-window {
+            width: 400px;
+            background: #ece9d8;
+            border: 3px solid #0054e3;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+            z-index: 100;
             position: relative;
         }
 
-        .meow-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+        .xp-title {
+            background: linear-gradient(180deg, #0997ff 0%, #0054e3 10%, #0054e3 90%, #002e8d 100%);
+            color: white;
+            padding: 5px 10px;
+            font-weight: bold;
+            display: flex; justify-content: space-between;
+            border-top-left-radius: 5px; border-top-right-radius: 5px;
         }
 
-        .meow-button:active {
-            transform: scale(0.95);
+        .xp-content {
+            padding: 30px;
+            text-align: center;
         }
 
-        /* Тот самый Nyan Cat */
-        #nyan-cat {
-            position: absolute;
-            width: 150px;
-            top: 50%;
-            left: -200px; /* Прячем за левым краем */
-            transform: translateY(-50%);
-            pointer-events: none;
-            z-index: 5;
+        /* Кнопка МЯУ */
+        .meow-btn {
+            background: linear-gradient(180deg, #ffffff 0%, #e0e0e0 100%);
+            border: 2px solid #707070;
+            padding: 10px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px white;
         }
+        .meow-btn:hover { background: #f0f0f0; }
+        .meow-btn:active { box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2); }
 
-        /* Анимация полета */
-        @keyframes flyAcross {
-            from { left: -200px; }
-            to { left: 110%; }
-        }
-
-        .animate-nyan {
-            animation: flyAcross 3s linear forwards;
-        }
-
-        /* Декоративный пузырь (Frutiger Aero style) */
+        /* Пузыри (рисуем через CSS, чтобы точно были) */
         .bubble {
             position: absolute;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            box-shadow: inset -10px -10px 20px rgba(255,255,255,0.3);
             pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Nyan Cat (или Хеллоу Китти) */
+        #cat {
+            position: fixed;
+            top: 40%;
+            left: -400px;
+            width: 300px;
+            z-index: 200;
+            pointer-events: none;
+        }
+
+        @keyframes fly {
+            0% { left: -400px; }
+            100% { left: 120%; }
         }
     </style>
 </head>
@@ -81,9 +86,37 @@
 
     <audio id="meow-sound" src="https://www.myinstants.com/media/sounds/meow.mp3"></audio>
 
-    <div class="bubble" style="width: 200px; height: 200px; top: 10%; left: 10%;"></div>
-    <div class="bubble" style="width: 100px; height: 100px; bottom: 20%; right: 15%;"></div>
+    <div class="bubble" style="width: 200px; height: 200px; top: 10%; left: 5%;"></div>
+    <div class="bubble" style="width: 150px; height: 150px; bottom: 10%; right: 10%;"></div>
+    <div class="bubble" style="width: 80px; height: 80px; top: 50%; right: 30%;"></div>
 
-    <button class="meow-button" onclick="startMeow()">МЯУ</button>
+    <div class="xp-window">
+        <div class="xp-title">
+            <span>Internet Explorer</span>
+            <span style="background: red; width: 20px; text-align: center; cursor: pointer;">X</span>
+        </div>
+        <div class="xp-content">
+            <p style="margin-bottom: 20px; font-size: 18px;">The Internet is starting...</p>
+            <button class="meow-btn" onclick="goMeow()">МЯУ</button>
+        </div>
+    </div>
 
-    <img id="nyan-cat" src="
+    <img id="cat" src="https://media.giphy.com/media/sIIhZliB2McAo/giphy.gif" alt="Nyan Cat">
+
+    <script>
+        function goMeow() {
+            const sound = document.getElementById('meow-sound');
+            const cat = document.getElementById('cat');
+
+            // Включаем звук
+            sound.currentTime = 0;
+            sound.play();
+
+            // Запускаем кота
+            cat.style.animation = 'none';
+            void cat.offsetWidth; // Сброс анимации
+            cat.style.animation = 'fly 3s linear forwards';
+        }
+    </script>
+</body>
+</html>
